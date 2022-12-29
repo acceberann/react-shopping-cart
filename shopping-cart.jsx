@@ -13,14 +13,24 @@ function NavBar({ stockitems }) {
     // use newStock = stock.map to find "name" and decrease number in stock by 1
     // only if instock is >=  do we move item to Cart and update stock
     let newStock = stock.map((item, index) => {
-      if (item.name == name) item.instock--;
+      if (item.name == name && num >= 1) item.instock--;
       return item;
     });
     setStock(newStock);
+    // code to update cart 
+    setCart(...cart, ...item);
   };
   const updatedList = stock.map((item, index) => {
     return (
       <Button onClick={moveToCart} key={index}>
+        {item.name}:{item.instock}
+      </Button>
+    );
+  });
+// my code to add a button to the shopping cart w
+  const updatedCart = cart.map((item, index) => {
+    return (
+      <Button key={index}>
         {item.name}:{item.instock}
       </Button>
     );
@@ -30,6 +40,7 @@ function NavBar({ stockitems }) {
     <>
       <ul style={{ listStyleType: "none" }}>{updatedList}</ul>
       <h1>Shopping Cart</h1>
+      <ul style={{ listStyleType: "none" }}>{updatedCart}</ul>
     </>
   );
 }
